@@ -32,7 +32,6 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     public void login(String mail, String contra) {
-        //StringBuilder sb = new StringBuilder();
         File archivo = new File(getApplication().getFilesDir(), "usuarios.dat");
 
         try {
@@ -46,12 +45,8 @@ public class MainActivityViewModel extends AndroidViewModel {
             while (true) {
                 try {
                     Usuario usu = (Usuario) ois.readObject();
-                    //String nombre = usu.getNombre();
-                    //String apellido = usu.getApellido();
                     String email = usu.getMail();
                     String pass = usu.getPass();
-                    //long dni = usu.getDni();
-                    //sb.append(nombre + " " + apellido + " " + email + " " + dni + " " + pass + "\n");
                     if(mail.equals(email) && contra.equals(pass))
                     {
                         Intent intent = new Intent(getApplication(), RegistroActivity.class);
@@ -63,7 +58,6 @@ public class MainActivityViewModel extends AndroidViewModel {
                         Toast.makeText(getApplication(), "Email o Usuario incorrecto", Toast.LENGTH_LONG).show();
                     }
                 } catch (EOFException eof) {
-                    //usuarioMutable.setValue(sb.toString());
                     fis.close();
                     break;
                 } catch (ClassNotFoundException e) {
