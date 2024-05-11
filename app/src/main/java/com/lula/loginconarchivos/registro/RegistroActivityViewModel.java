@@ -25,11 +25,9 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 public class RegistroActivityViewModel extends AndroidViewModel {
-    private Context context;
     private MutableLiveData<String> usuarioMutable;
     public RegistroActivityViewModel(@NonNull Application application) {
         super(application);
-        context = application.getApplicationContext();
     }
 
     public LiveData<String> getUsuarioMutable()
@@ -42,7 +40,7 @@ public class RegistroActivityViewModel extends AndroidViewModel {
     }
     public void guardarUsuario(String nombre, String apellido, String mail, String pass, long dni){
         Usuario usu = new Usuario(nombre, apellido, mail, pass ,dni);
-        File archivo = new File(context.getFilesDir(), "usuarios.dat");
+        File archivo = new File(getApplication().getFilesDir(), "usuarios.dat");
         if(archivo.length() == 0) {
             try {
                 //creo el nodo
@@ -59,11 +57,11 @@ public class RegistroActivityViewModel extends AndroidViewModel {
                 fos.close();
                 usu = null;
 
-                Toast.makeText(context, "Usuario Guardado", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Usuario Guardado", Toast.LENGTH_LONG).show();
             } catch (FileNotFoundException e) {
-                Toast.makeText(context, "Error al acceder al archivo FileNotFound", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Error al acceder al archivo FileNotFound", Toast.LENGTH_LONG).show();
             } catch (IOException e) {
-                Toast.makeText(context, "Error al acceder al archivo IOExcep", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Error al acceder al archivo IOExcep", Toast.LENGTH_LONG).show();
             }
         }
         else {
@@ -80,12 +78,12 @@ public class RegistroActivityViewModel extends AndroidViewModel {
                 //cierro el nodo
                 fos.close();
                 usu = null;
-                Toast.makeText(context, "Usuario Guardado", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Usuario Guardado", Toast.LENGTH_LONG).show();
 
             } catch (FileNotFoundException e) {
-                Toast.makeText(context, "Error al acceder al archivo FileNotFound", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Error al acceder al archivo FileNotFound", Toast.LENGTH_LONG).show();
             } catch (IOException e) {
-                Toast.makeText(context, "Error al acceder al archivo IOExcep", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Error al acceder al archivo IOExcep", Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -93,7 +91,7 @@ public class RegistroActivityViewModel extends AndroidViewModel {
     public void recuperarUsuario()
     {
         StringBuilder sb = new StringBuilder();
-        File archivo = new File(context.getFilesDir(), "usuarios.dat");
+        File archivo = new File(getApplication().getFilesDir(), "usuarios.dat");
 
         try {
             //creo el nodo
@@ -123,9 +121,9 @@ public class RegistroActivityViewModel extends AndroidViewModel {
             }
 
         } catch (FileNotFoundException e) {
-            Toast.makeText(context, "Error al acceder al archivo FileNotFound", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Error al acceder al archivo FileNotFound", Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            Toast.makeText(context, "Error al acceder al archivo IOExcep", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), "Error al acceder al archivo IOExcep", Toast.LENGTH_LONG).show();
         }
     }
 

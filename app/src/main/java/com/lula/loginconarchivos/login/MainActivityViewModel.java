@@ -26,20 +26,19 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 public class MainActivityViewModel extends AndroidViewModel {
-    private Context context;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void login(String mail, String contra) {
-        StringBuilder sb = new StringBuilder();
-        File archivo = new File(context.getFilesDir(), "usuarios.dat");
+        //StringBuilder sb = new StringBuilder();
+        File archivo = new File(getApplication().getFilesDir(), "usuarios.dat");
 
         try {
             //creo el nodo
             FileInputStream fis = new FileInputStream(archivo);
-            //lo envulevo en el buffer
+            //lo envuelvo en el buffer
             BufferedInputStream bis = new BufferedInputStream(fis);
             //lo envuelvo en el object
             ObjectInputStream ois = new ObjectInputStream(bis);
@@ -55,13 +54,13 @@ public class MainActivityViewModel extends AndroidViewModel {
                     //sb.append(nombre + " " + apellido + " " + email + " " + dni + " " + pass + "\n");
                     if(mail.equals(email) && contra.equals(pass))
                     {
-                        Intent intent = new Intent(context, RegistroActivity.class);
+                        Intent intent = new Intent(getApplication(), RegistroActivity.class);
                         //pongo esta bandera porque lanzo la activity desde un ViewModel
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                        getApplication().startActivity(intent);
                     }
                     else {
-                        Toast.makeText(context, "Email o Usuario incorrecto", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplication(), "Email o Usuario incorrecto", Toast.LENGTH_LONG).show();
                     }
                 } catch (EOFException eof) {
                     //usuarioMutable.setValue(sb.toString());
